@@ -47,10 +47,10 @@ public class CodeFirstPojoHelloImpl {
         try {
             invokePojo = catchPojo.sayHi("catchH2");
             logger.info("invoke catchH2");
-//            invokejaxrs = jaxrsHello.sayHi("codeFirstJaxrsHello");
-//            logger.info("invoke codeFirstJaxrsHello");
-//            invokeSpringmvc = springmvcHello.sayHi("codeFirstSpringmvcHello");
-//            logger.info("invoke codeFirstSpringmvcHello");
+            invokejaxrs = jaxrsHello.sayHi("codeFirstJaxrsHello");
+            logger.info("invoke codeFirstJaxrsHello");
+            invokeSpringmvc = springmvcHello.sayHi("codeFirstSpringmvcHello");
+            logger.info("invoke codeFirstSpringmvcHello");
         } catch (Exception e) {
             logger.error("sayHi invoke filed");
         }
