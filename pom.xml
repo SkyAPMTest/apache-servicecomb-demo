@@ -35,9 +35,9 @@
     <modules>
         <module>servicecomb-provider</module>
         <module>servicecomb-consumer</module>
-        <module>servicecomb-calculator</module>
         <module>common-schema</module>
         <module>storage-provider</module>
+        <module>serviceB</module>
 
     </modules>
     <dependencyManagement>

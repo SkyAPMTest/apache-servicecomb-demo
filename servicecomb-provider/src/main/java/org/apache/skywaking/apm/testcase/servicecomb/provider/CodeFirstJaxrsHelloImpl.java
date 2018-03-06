@@ -18,12 +18,10 @@
 
 package org.apache.skywaking.apm.testcase.servicecomb.provider;
 
-
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import org.apache.log4j.Logger;
 import org.apache.servicecomb.provider.pojo.RpcSchema;
 import org.apache.skywaking.apm.testcase.servicecomb.schemma.Hello;
@@ -34,21 +32,23 @@ import org.springframework.web.client.RestTemplate;
 @Path("/codefirstjaxrshello")
 @Produces(MediaType.APPLICATION_JSON)
 public class CodeFirstJaxrsHelloImpl implements Hello {
-  private static Logger logger = Logger.getLogger(CodeFirstJaxrsHelloImpl.class);
-  @Path("/sayhi")
-  @POST
-  @Override
-  public String sayHi(String name) {
-    RestTemplate restTemplate = new RestTemplate();
-    String  result =  restTemplate.getForObject("http://127.0.0.1:8082/bmi?height=189&&weight=63", String.class);
-    logger.info("calculator result："+result);
-    return  "calculator result:"+result;
-  }
+    private static Logger logger = Logger.getLogger(CodeFirstJaxrsHelloImpl.class);
 
-  @Path("/sayhello")
-  @POST
-  @Override
-  public String sayHello(Person person) {
-    return "Jaxrs Hello person " + person.getName();
-  }
+    @Path("/sayhi")
+    @POST
+    @Override
+    public String sayHi(String name) {
+        RestTemplate restTemplate = new RestTemplate();
+//    String  result =  restTemplate.getForObject("http://127.0.0.1:8082/bmi?height=189&&weight=63", String.class);
+        String result = restTemplate.getForObject("http://127.0.0.1:9091//serviceB/rest", String.class);
+        logger.info(" result：" + result);
+        return "calculator result:" + result;
+    }
+
+    @Path("/sayhello")
+    @POST
+    @Override
+    public String sayHello(Person person) {
+        return "Jaxrs Hello person " + person.getName();
+    }
 }

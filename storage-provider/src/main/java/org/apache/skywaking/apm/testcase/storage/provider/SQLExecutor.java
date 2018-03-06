@@ -22,11 +22,15 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.apache.log4j.Logger;
 
 public class SQLExecutor {
+    private static Logger logger = Logger.getLogger(SQLExecutor.class);
     private Connection connection;
+
     public SQLExecutor() throws SQLException {
         try {
             Class.forName("org.h2.Driver");
@@ -46,6 +50,15 @@ public class SQLExecutor {
         preparedStatement.setString(1, id);
         preparedStatement.setString(2, value);
         preparedStatement.execute();
+        preparedStatement.close();
+    }
+
+    public void selectData(String sql) throws SQLException {
+        CallableStatement preparedStatement = connection.prepareCall(sql);
+        ResultSet rs = preparedStatement.executeQuery();
+        while (rs.next()) {
+            logger.info(rs.getString(1));
+        }
         preparedStatement.close();
     }
 

@@ -28,9 +28,10 @@ import org.apache.skywaking.apm.testcase.servicecomb.schemma.models.Person;
 public class CatchPojoHelloImpl implements Hello {
 
     private static Logger logger = Logger.getLogger(CatchPojoHelloImpl.class);
-    private static final String CREATE_TABLE_SQL = "CREATE TABLE test_007(id VARCHAR(1) PRIMARY KEY ,value VARCHAR(1) NOT NULL)";
+    private static final String CREATE_TABLE_SQL = " CREATE TABLE IF NOT EXISTS test_007(id VARCHAR(13) PRIMARY KEY ,value VARCHAR(13) NOT NULL)";
     private static final String INSERT_DATA_SQL = "INSERT INTO test_007(id, value) VALUES(?,?)";
-    private static final String DROP_TABLE_SQL = "DROP table test_007";
+    private static final String SELECT_DATA_SQL = "SELECT id,value FROM test_007 ";
+    private static final String DROP_TABLE_SQL = " DROP table IF  EXISTS  test_007";
 
     @Override
     public String sayHi(String name) {
@@ -38,7 +39,8 @@ public class CatchPojoHelloImpl implements Hello {
         try {
             sqlExecute = new SQLExecutor();
             sqlExecute.createTable(CREATE_TABLE_SQL);
-            sqlExecute.insertData(INSERT_DATA_SQL, "1", "1");
+            sqlExecute.insertData(INSERT_DATA_SQL, "h2", "ok");
+            sqlExecute.selectData(SELECT_DATA_SQL);
             sqlExecute.dropTable(DROP_TABLE_SQL);
         } catch (SQLException e) {
             logger.error("Failed to execute sql.", e);
